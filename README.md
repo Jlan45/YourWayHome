@@ -51,16 +51,18 @@ go build -o your-way-home .
 
 ## Docker 打包与运行
 
-构建镜像：
+### 直接使用 DockerHub 镜像（推荐）
+
+拉取镜像：
 
 ```bash
-docker build -t your-way-home:latest .
+docker pull jlan45/your-way-home:latest
 ```
 
 使用默认镜像内置配置运行：
 
 ```bash
-docker run --rm your-way-home:latest
+docker run --rm jlan45/your-way-home:latest
 ```
 
 挂载本地配置运行：
@@ -68,7 +70,7 @@ docker run --rm your-way-home:latest
 ```bash
 docker run --rm \
   -v "$(pwd)/frpc.ini:/app/frpc.ini:ro" \
-  your-way-home:latest
+  jlan45/your-way-home:latest
 ```
 
 传入自定义 gost service：
@@ -76,8 +78,20 @@ docker run --rm \
 ```bash
 docker run --rm \
   -v "$(pwd)/frpc.ini:/app/frpc.ini:ro" \
-  your-way-home:latest \
+  jlan45/your-way-home:latest \
   -c /app/frpc.ini -H "socks5://:1080"
+```
+
+### 本地构建镜像
+
+```bash
+docker build -t your-way-home:latest .
+```
+
+本地镜像运行：
+
+```bash
+docker run --rm your-way-home:latest
 ```
 
 ## 常见问题
